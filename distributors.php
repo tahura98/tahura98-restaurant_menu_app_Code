@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Distributor Dashboard | PureHarvest Safety</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    .modal-header, .modal-footer {
+      background-color: #198754;
+      color: white;
+    }
+    #formModal, #shipmentFormModal {
+      display: none;
+      position: fixed;
+      top: 10%;
+      left: 50%;
+      transform: translateX(-50%);
+      background: white;
+      padding: 20px;
+      border: 1px solid #ccc;
+      border-radius: 10px;
+      z-index: 1000;
+      width: 400px;
+    }
+    #overlay {
+      display: none;
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(0,0,0,0.5);
+      z-index: 500;
+    }
+  </style>
+</head>
+<body>
+
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-success">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#">PureHarvest Safety</a>
+    <a class="btn btn-light ms-auto" href="index.html">Back to Dashboard</a>
+  </div>
+</nav>
+
+<!-- Title Section -->
+<section class="py-5 bg-success text-white text-center">
+  <div class="container">
+    <h1>Distributor Dashboard</h1>
+    <p>Manage your purchases, shipments, and track products.</p>
+  </div>
+</section>
+
+<!-- Tabs -->
+<div class="container my-5">
+  <ul class="nav nav-tabs" id="dashboardTabs" role="tablist">
+    <li class="nav-item">
+      <button class="nav-link active" id="Distributor-tab" data-bs-toggle="tab" data-bs-target="#Distributor" type="button" role="tab">Distributor</button>
+    </li>
+    <li class="nav-item">
+      <button class="nav-link" id="shipment-tab" data-bs-toggle="tab" data-bs-target="#shipment" type="button" role="tab">Distributor Shipments</button>
+    </li>
+    <li class="nav-item">
+      <button class="nav-link" id="track-tab" data-bs-toggle="tab" data-bs-target="#track" type="button" role="tab">Track Product</button>
+    </li>
+  </ul>
+
+  <div class="tab-content" id="dashboardTabsContent">
+    <!-- Distributor Tab -->
+    <div class="tab-pane fade show active" id="Distributor" role="tabpanel">
+      <h3 class="mt-4">Distributor</h3>
+      <button class="btn btn-success mb-3" onclick="createRow()">Add</button>
+      <button class="btn btn-danger mb-3" onclick="deleteTable()">Delete</button>
+
+      <table class="table table-bordered" id="distributorTable">
+        <thead>
+          <tr>
+            <th>No.</th>
+            <th>Distributor ID</th>
+            <th>Distributor Name</th>
+            <th>Location</th>
+            <th>Type</th>
+            <th>Storage Capacity</th>
+            <th>Status</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody id="distributorTableBody">
+          <tr>
+            <td>1</td>
+            <td>D001</td>
+            <td>Azad</td>
+            <td>Warehouse A</td>
+            <td>Retail</td>
+            <td>500 kg</td>
+            <td>Active</td>
+            <td>
+              <button class="btn btn-primary btn-sm" onclick="editRow(this)">Update</button>
+              <button class="btn btn-danger btn-sm" onclick="deleteRow(this)">Delete</button>
+            </td>
+          </tr>
+          <tr>
+            <td>2</td>
+            <td>D002</td>
+            <td>Kalam</td>
+            <td>Warehouse B</td>
+            <td>Wholesale</td>
+            <td>300 kg</td>
+            <td>Inactive</td>
+            <td>
+              <button class="btn btn-primary btn-sm" onclick="editRow(this)">Update</button>
+              <button class="btn btn-danger btn-sm" onclick="deleteRow(this)">Delete</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Distributor Shipments Tab -->
+    <div class="tab-pane fade" id="shipment" role="tabpanel">
+      <h3 class="mt-4">Distributor Shipments</h3>
+      <button class="btn btn-success mb-3" onclick="createShipmentRow()">Add New Shipment</button>
+      <button class="btn btn-danger mb-3" onclick="deleteShipmentTable()">Delete</button>
+      
+      <table class="table table-bordered" id="shipmentTable">
+        <thead>
+          <tr>
+            <th>No.</th>
+            <th>Shipment ID</th>
+            <th>Dispatch Date</th>
+            <th>Arrival Date</th>
+            <th>Quantity Shipped</th>
+            <th>Shipment Status</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody id="shipmentTableBody">
+          <tr>
+            <td>1</td>
+            <td>SHIP123</td>
+            <td>2025-04-20</td>
+            <td>2025-04-22</td>
+            <td>200 kg</td>
+            <td>In Transit</td>
+            <td>
+              <button class="btn btn-primary btn-sm" onclick="editShipmentRow(this)">Update</button>
+              <button class="btn btn-danger btn-sm" onclick="deleteShipmentRow(this)">Delete</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Track Product Tab -->
+    <div class="tab-pane fade" id="track" role="tabpanel">
+      <h3 class="mt-4">Track Product</h3>
+      <form id="trackForm" method="POST" action="track_product.php">
+        <div class="mb-3">
+          <label>Enter Product ID:</label>
+          <input type="text" id="productId" name="productId" class="form-control" required>
+        </div>
+        <button type="submit" class="btn btn-success">Track</button>
+      </form>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>

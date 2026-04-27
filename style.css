@@ -1,0 +1,81 @@
+/* Base Styles */
+body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+    margin: 30px;
+    background-color: #f9f9f9;
+}
+
+/* Headings */
+h1, h2, h3 {
+    text-align: center;
+    margin-top: 20px;
+}
+
+/* Form Elements */
+form {
+    text-align: center;
+    margin: 20px;
+}
+form input,
+form button {
+    padding: 8px;
+    margin: 5px;
+}
+
+/* Buttons - General Style */
+button,
+.view-charts-btn,
+.chart-btn {
+    background-color: #28a745;
+    color: white;
+    text-decoration: none;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+/* Button Sizes */
+button {
+    padding: 8px;
+}
+.view-charts-btn {
+    display: inline-block;
+    padding: 10px 20px;
+    font-size: 16px;
+    margin-top: 20px;
+}
+.chart-btn {
+    display: inline-block;
+    padding: 12px 25px;
+    font-size: 18px;
+    margin: 10px;
+}
+
+/* Button Hover Effects */
+.view-charts-btn:hover,
+.chart-btn:hover,
+button:hover {
+    background-color: #218838;
+}
+
+/* Table Styles */
+table {
+    width: 80%;
+    margin: 20px auto;
+    border-collapse: collapse;
+    background-color: white;
+}
+th, td {
+    padding: 8px 12px;
+    border: 1px solid #ddd;
+    text-align: center;
+}
+
+/* Links */
+a {
+    text-decoration: none;
+    color: blue;
+    margin: 0 5px;
+}
